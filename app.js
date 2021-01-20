@@ -12,7 +12,7 @@ const { login, createUser } = require('./controllers/users');
 const { requestLogger, errorLogger } = require('./middleware/logger');
 const NotFoundError = require('./errors/NotFound.js');
 
-const { PORT = 80 } = process.env;
+const { PORT = 3000 } = process.env;
 
 const app = express();
 require('dotenv').config();
