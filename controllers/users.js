@@ -13,6 +13,7 @@ module.exports.getUser = (req, res, next) => {
     .then((user) => {
       if (user) {
         res.send(user);
+        return;
       }
       throw new NotFoundError('User ID not found');
     })
