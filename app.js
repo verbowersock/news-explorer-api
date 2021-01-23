@@ -12,6 +12,8 @@ const { login, createUser } = require('./controllers/users');
 const { requestLogger, errorLogger } = require('./middleware/logger');
 const NotFoundError = require('./errors/NotFound.js');
 
+const { NODE_ENV, DB_HOST } = process.env;
+
 const { PORT = 3000 } = process.env;
 
 const app = express();
@@ -28,12 +30,12 @@ const limiter = rateLimit({
 app.use(limiter);
 
 app.use(bodyParser.urlencoded({ extended: true }));
-mongoose.connect('mongodb://localhost:27017/aroundb', {
+mongoose.connect(NODE_ENV === 'production' ? DB_HOST : 'mongodb://localhost:27017/newsexplorerdb', {
   useNewUrlParser: true,
   useCreateIndex: true,
   useFindAndModify: false,
 });
-
+console.log(mongoose.ConnectionBase)
 app.listen(PORT, () => {
   // eslint-disable-next-line no-console
   console.log(`App listening at port ${PORT}`);
