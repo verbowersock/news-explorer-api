@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
@@ -17,7 +19,6 @@ const { NODE_ENV, DB_HOST } = process.env;
 const { PORT = 3000 } = process.env;
 
 const app = express();
-require('dotenv').config();
 
 app.use(helmet());
 app.use(cors());
@@ -35,7 +36,7 @@ mongoose.connect(NODE_ENV === 'production' ? DB_HOST : 'mongodb://localhost:2701
   useCreateIndex: true,
   useFindAndModify: false,
 });
-console.log(mongoose.ConnectionBase)
+
 app.listen(PORT, () => {
   // eslint-disable-next-line no-console
   console.log(`App listening at port ${PORT}`);
