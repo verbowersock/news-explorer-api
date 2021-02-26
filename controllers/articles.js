@@ -5,7 +5,7 @@ const NotFoundError = require('../errors/NotFound');
 const Article = require('../models/article');
 
 module.exports.getArticles = (req, res, next) => {
-  Article.find({})
+  Article.find({ owner: req.user._id })
     .then((articles) => res.send(articles))
     .catch(next);
 };
@@ -14,7 +14,6 @@ module.exports.createArticle = (req, res, next) => {
   const {
     keyword, title, text, date, source, link, image,
   } = req.body;
-  console.log(req.user._id);
   Article.create({
     keyword, title, text, date, source, link, image, owner: req.user._id,
   })

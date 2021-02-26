@@ -7,6 +7,9 @@ const {
 router.get('/', celebrate({
   headers: Joi.object().keys({
   }).unknown(true),
+  body: Joi.object().keys({
+    articleId: Joi.string().hex().length(24),
+  }),
 }), getArticles);
 
 router.post('/', celebrate({

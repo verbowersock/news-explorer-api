@@ -38,7 +38,7 @@ module.exports.createUser = (req, res, next) => {
       if (err.name === 'CastError') {
         throw new BadRequestError('Invalid data');
       } else if (err.name === 'MongoError' || err.name === 'ValidationError') {
-        throw new ConflictError('User with those credentials already exists');
+        throw new ConflictError('This email is unavailable');
       }
       next(err);
     })
