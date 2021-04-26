@@ -14,7 +14,7 @@ const { login, createUser } = require('./controllers/users');
 const { requestLogger, errorLogger } = require('./middleware/logger');
 const NotFoundError = require('./errors/NotFound.js');
 
-const { NODE_ENV, DB_HOST } = process.env;
+const { NODE_ENV, MONGODB_URI } = process.env;
 
 const { PORT = 3000 } = process.env;
 
@@ -31,7 +31,7 @@ const limiter = rateLimit({
 app.use(limiter);
 
 app.use(bodyParser.urlencoded({ extended: true }));
-mongoose.connect(NODE_ENV === 'production' ? DB_HOST : 'mongodb://localhost:27017/newsexplorerdb', {
+mongoose.connect(MONGODB_URI, {
   useNewUrlParser: true,
   useCreateIndex: true,
   useFindAndModify: false,
