@@ -1,5 +1,4 @@
 require('dotenv').config();
-
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
@@ -14,7 +13,7 @@ const { login, createUser } = require('./controllers/users');
 const { requestLogger, errorLogger } = require('./middleware/logger');
 const NotFoundError = require('./errors/NotFound.js');
 
-const { NODE_ENV, MONGODB_URI } = process.env;
+const { MONGODB_URI } = process.env;
 
 const { PORT = 3000 } = process.env;
 

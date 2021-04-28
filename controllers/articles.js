@@ -20,7 +20,6 @@ module.exports.createArticle = (req, res, next) => {
     .then((article) => res.send(article))
     .catch((err) => {
       if (err.name === 'CastError' || err.name === 'ValidationError') {
-        console.log(err);
         throw new BadRequestError('Invalid data');
       }
       next(err);
