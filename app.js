@@ -67,7 +67,7 @@ app.use(() => {
 
 app.use(errors());
 app.use(errorLogger);
-
+/*
 // eslint-disable-next-line no-unused-vars
 app.use((err, req, res, next) => {
   const { statusCode = 500, message } = err;
@@ -79,3 +79,4 @@ app.use((err, req, res, next) => {
         : message,
     });
 });
+*/
