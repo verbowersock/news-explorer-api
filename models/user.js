@@ -31,18 +31,14 @@ const userSchema = new mongoose.Schema({
 userSchema.statics.findUserByCredentials = function (email, password) {
   return this.findOne({ email }).select('+password')
     .then((user) => {
-      
       if (!user) {
-        console.log("can't find in model")
         throw new UnauthorizedError('Incorrect email or password');
       }
       return bcrypt.compare(password, user.password)
         .then((matched) => {
-          console.log("can't match in model")
           if (!matched) {
             throw new UnauthorizedError('Incorrect email or password');
           }
-          console.log("user")
           return user;
         });
     });

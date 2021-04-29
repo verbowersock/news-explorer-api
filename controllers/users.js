@@ -52,7 +52,6 @@ module.exports.login = (req, res, next) => {
       if (!user) {
         throw new UnauthorizedError('Incorrect password or email.');
       } else {
-        console.log("generating token")
         const token = jwt.sign({ _id: user._id }, NODE_ENV === 'production' ? JWT_SECRET : 'practicum', { expiresIn: '7d' });
         res.cookie('token', token, { httpOnly: true });
         res.json({ token });
