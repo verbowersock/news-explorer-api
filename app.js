@@ -1,17 +1,17 @@
-require('dotenv').config();
-const express = require('express');
-const mongoose = require('mongoose');
-const bodyParser = require('body-parser');
-const helmet = require('helmet');
-const { celebrate, Joi, errors } = require('celebrate');
-const rateLimit = require('express-rate-limit');
-const cors = require('cors');
-const users = require('./routes/users.js');
-const articles = require('./routes/articles.js');
-const auth = require('./middleware/auth.js');
-const { login, createUser } = require('./controllers/users');
-const { requestLogger, errorLogger } = require('./middleware/logger');
-const NotFoundError = require('./errors/NotFound.js');
+require("dotenv").config();
+const express = require("express");
+const mongoose = require("mongoose");
+const bodyParser = require("body-parser");
+const helmet = require("helmet");
+const { celebrate, Joi, errors } = require("celebrate");
+const rateLimit = require("express-rate-limit");
+const cors = require("cors");
+const users = require("./routes/users.js");
+const articles = require("./routes/articles.js");
+const auth = require("./middleware/auth.js");
+const { login, createUser } = require("./controllers/users");
+const { requestLogger, errorLogger } = require("./middleware/logger");
+const NotFoundError = require("./errors/NotFound.js");
 
 const { MONGODB_URI } = process.env;
 
@@ -43,26 +43,38 @@ app.listen(PORT, () => {
 
 app.use(requestLogger);
 
-app.post('/signin', celebrate({
-  body: Joi.object().keys({
-    email: Joi.string().required().regex(/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/),
-    password: Joi.string().required(),
+app.post(
+  "/signin",
+  celebrate({
+    body: Joi.object().keys({
+      email: Joi.string()
+        .required()
+        .regex(/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/),
+      password: Joi.string().required(),
+    }),
   }),
-}), login);
+  login
+);
 
-app.post('/signup', celebrate({
-  body: Joi.object().keys({
-    name: Joi.string().min(2).max(30),
-    email: Joi.string().required().regex(/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/),
-    password: Joi.string().required(),
+app.post(
+  "/signup",
+  celebrate({
+    body: Joi.object().keys({
+      name: Joi.string().min(2).max(30),
+      email: Joi.string()
+        .required()
+        .regex(/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/),
+      password: Joi.string().required(),
+    }),
   }),
-}), createUser);
+  createUser
+);
 
-app.use('/articles', auth, articles);
-app.use('/users', auth, users);
+app.use("/articles", auth, articles);
+app.use("/users", auth, users);
 
 app.use(() => {
-  throw new NotFoundError('Page not found');
+  throw new NotFoundError("Page not found");
 });
 
 app.use(errors());
@@ -71,11 +83,7 @@ app.use(errorLogger);
 // eslint-disable-next-line no-unused-vars
 app.use((err, req, res, next) => {
   const { statusCode = 500, message } = err;
-  res
-    .status(statusCode)
-    .send({
-      message: statusCode === 500
-        ? 'An error occurred on the server'
-        : message,
-    });
+  res.status(statusCode).send({
+    message: statusCode === 500 ? message : message,
+  });
 });
