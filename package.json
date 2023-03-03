@@ -24,8 +24,10 @@
     "eslint-plugin-react": "^7.21.5",
     "nodemon": "^2.0.6"
   },
+  "engines": {
+    "node": "16.x"
+  },
   "dependencies": {
-    "Validator": "^1.1.2",
     "bcrypt": "^5.0.0",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
@@ -39,10 +41,12 @@
     "helmet": "^4.3.1",
     "joi": "^17.3.0",
     "jsonwebtoken": "^8.5.1",
+    "mongodb": "5.1",
     "mongoose": "^5.11.7",
     "mongoose-unique-validator": "^2.0.3",
     "ratelimit": "0.0.4",
     "validator": "^13.5.2",
+    "Validator": "^1.1.2",
     "winston": "^3.3.3"
   }
 }
